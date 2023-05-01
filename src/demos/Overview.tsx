@@ -11,6 +11,7 @@ import { ContentUpdateDemo } from "./DemoApi";
 import { ContentUpdateDemoUseTransition } from "./DemoApi";
 
 import { TabContainer } from "./ReactDemoOfficial";
+import UseIdDemo from "./UseIdDemo";
 
 export default Overview;
 
@@ -26,6 +27,8 @@ const components = [
     {desc: "Content Update Demo mit useTransition", path:"/content2/", Component: ContentUpdateDemoUseTransition},
 
     {desc: "FB Demo", path:"/fbdemo1/", Component: TabContainer},
+
+    {desc: "useId Demo", path:"/useId/", Component: UseIdDemo},
 ];
 
 function Overview() {
