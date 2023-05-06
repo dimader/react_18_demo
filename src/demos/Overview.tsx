@@ -11,6 +11,7 @@ import { ContentUpdateDemo } from "./DemoApi";
 import { ContentUpdateDemoUseTransition } from "./DemoApi";
 
 import { TabContainer } from "./ReactDemoOfficial";
+import { HeavyRenderDemo, HeavyRenderOptimizedDemo } from "./UseDeferredValueDemo";
 import UseIdDemo from "./UseIdDemo";
 
 export default Overview;
@@ -21,14 +22,18 @@ export default Overview;
  * verwendet werden.
  */
 const components = [
-    {desc: "Long API Demo 1", path:"/api/", Component: LongApiCallDemo},
-    {desc: "Input Lag Demo 1", path:"/inputlag1/", Component: HeavyInputLagDemo},
+    {desc: "useId - Demo", path:"/useId/", Component: UseIdDemo},
+    
+    {desc: "useEffect - Long API Call Demo", path:"/api/", Component: LongApiCallDemo},
+
+    {desc: "Input Lag Demo - aufwändiges Rendern", path:"/inputlag1/", Component: HeavyInputLagDemo},
+
+    {desc: "useDeferredValue - Demo ohne Optimierung", path:"/useDeferredValue1/", Component: HeavyRenderDemo},
+    {desc: "useDeferredValue - Demo mit useDeferredValue-Hook", path:"/useDeferredValue2/", Component: HeavyRenderOptimizedDemo},
+
     {desc: "Content Update Demo 1", path:"/content1/", Component: ContentUpdateDemo},
     {desc: "Content Update Demo mit useTransition", path:"/content2/", Component: ContentUpdateDemoUseTransition},
-
     {desc: "FB Demo", path:"/fbdemo1/", Component: TabContainer},
-
-    {desc: "useId Demo", path:"/useId/", Component: UseIdDemo},
 ];
 
 function Overview() {

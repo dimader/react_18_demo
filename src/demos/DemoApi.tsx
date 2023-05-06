@@ -5,8 +5,7 @@ import { ChangeEvent, Fragment, memo, useDeferredValue, useEffect, useState, use
  * dieser wird in einem useEffect gemacht.
  * Über den Hochzählen Button kann jederzeit der State der Komponente 
  * geändert werden. 
- * Es gibt keine blockierende Aktion da das useEffect nicht beim 
- * Rendern ausgeführt wird. 
+ * Es gibt keine blockierende Aktion.
  */
 export function LongApiCallDemo() {
     const [ count, setCount ] = useState(0);
@@ -25,7 +24,7 @@ export function LongApiCallDemo() {
 
             // warten...
             await sleep(10000);
-            return 'Ergebnis liegt vor!';
+            return 'Ergebnis liegt jetzt vor!';
         };
 
         getErgebnis()
@@ -49,6 +48,7 @@ export function LongApiCallDemo() {
  * Tricks zugreifen und über die Dependencies des useEffect immer steuern, wann
  * dieser ausgeführt werden soll und wann nicht. 
  * 
+ * @@@
  * --> Das ist doch ein Anwendungsfall für useDefferedValue und nicht für useTransition... ???
  * Wie genau unterscheiden wir da?
  * useTransition wenn das rendern lange dauert, zb auch das initiale rendern
@@ -80,6 +80,7 @@ export function HeavyInputLagDemo() {
     );
 };
 
+/** Aktives warten. */
 function delay(ms: number) {
     let startTime = performance.now();
     while (performance.now() - startTime < ms) {
@@ -87,41 +88,44 @@ function delay(ms: number) {
     }
 };
 
-/**
- * Aufbau 1 - ohne Optimierung.
- */
-export function ChartUpdateDemo() {
-    const [ input, setInput ] = useState('');
-    const deferedInput = useDeferredValue(input);
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setInput(event.target.value);
-    };
-    return (
-        <Fragment>
-            <p>Aktuelle Eingabe: {input}</p>
-            <input id="desc" type="text" name="description" placeholder=""
-                    value={input}
-                    onChange={handleInputChange} 
-                    />
-            {/* Hier defered übergeben UND die Memo Komponente nutzen. */}
-            <Chart content={input} />
-        </Fragment>
-    );
-};
+// /**
+//  * Aufbau 1
+//  */
+// export function ChartUpdateDemo() {
+//     const [ input, setInput ] = useState('');
+//     // const deferedInput = useDeferredValue(input);
+//     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+//         setInput(event.target.value);
+//     };
+//     return (
+//         <Fragment>
+//             <p>Aktuelle Eingabe: {input}</p>
+//             <input id="desc" type="text" name="description" placeholder=""
+//                     value={input}
+//                     onChange={handleInputChange} 
+//                     />
+//             {/* TODO - effekt vorher/nacher prüfen - Hier defered übergeben UND die Memo Komponente nutzen. */}
+//             <Chart content={input} />
+//         </Fragment>
+//     );
+// };
 
-type CharParams = {
-    content: string
-};
-function Chart({content}: CharParams) {
-    delay(125); // Wichtige und komplexe Berechnungslogik !
-    return (
-        <Fragment>
-            <p>Inhalt: {content}</p>
-        </Fragment>
-    );
-};
+// type CharParams = {
+//     content: string
+// };
+// /** Verzögert durch aufwändiges Rendern die Ausgabe des übergebenen Wertes.
+//  * Simuliert dabei eine aufwändig gerenderte Komponente.
+//  */
+// function Chart({content}: CharParams) {
+//     delay(125); // Wichtige und komplexe Berechnungslogik !
+//     return (
+//         <Fragment>
+//             <p>Inhalt: {content}</p>
+//         </Fragment>
+//     );
+// };
 
-const ChartMemo = memo(Chart);
+// const ChartMemo = memo(Chart);
 
 
 /**
