@@ -1,39 +1,52 @@
 import { ChangeEvent, Fragment, memo, useDeferredValue, useEffect, useState, useTransition } from "react";
 
 /**
- * Aufbau 1
+ * Die Eingabe wird an eine langsame Komponente (Chart) übergeben. 
+ * Damit wird die Komplette Komponente langsam und verzögert die Ausgabe spürbar.
  */
  export function HeavyRenderDemo() {
     const [ input, setInput ] = useState('');
     
     return (
         <Fragment>
-            <p>Aktuelle Eingabe: {input}</p>
-            <input id="desc" type="text" name="description" placeholder=""
+            <div className="grid grid-cols-3 max-w-md">
+                <div className="col-span-3 bg-teal-100 m-5 p-3 rounded">
+                    Bei aufwändigem Rendern kann schnell eine spürbare Eingabeverzögerung entstehen.
+                </div>
+                <div className="col-span-3 bg-teal-300 m-5 p-3 rounded">Aktuelle Eingabe: {input}</div>
+                <input className="col-span-3" id="desc" type="search" name="description" placeholder=""
                     value={input}
-                    // onChange={handleInputChange}
                     onChange={e => setInput(e.target.value)}
-                    />
-            {/* TODO - effekt vorher/nacher prüfen - Hier defered übergeben UND die Memo Komponente nutzen. */}
-            <Chart content={input} />
+                />
+
+                <Chart content={input} />
+            </div>
         </Fragment>
     );
 };
 
+/**
+ * @@@
+ */
 export function HeavyRenderOptimizedDemo() {
     const [ input, setInput ] = useState('');
     const deferedInput = useDeferredValue(input);
 
     return (
         <Fragment>
-            <p>Aktuelle Eingabe: {input}</p>
-            <input id="desc" type="text" name="description" placeholder=""
+            <div className="grid grid-cols-3 max-w-md">
+                <div className="col-span-3 bg-teal-100 m-5 p-3 rounded">
+                    Bei aufwändigem Rendern kann schnell eine spürbare Eingabeverzögerung entstehen.
+                </div>
+                <div className="col-span-3 bg-teal-300 m-5 p-3 rounded">Aktuelle Eingabe: {input}</div>
+                <input className="col-span-3" id="desc" type="search" name="description" placeholder=""
                     value={input}
                     onChange={e => setInput(e.target.value)}
-                    />
+                />
 
-            {/* Memo nutzen und deferred-Value übergeben. */}
-            <ChartMemo content={deferedInput} />
+                {/* Memo nutzen und deferred-Value übergeben. */}
+                <ChartMemo content={deferedInput} />
+            </div>
         </Fragment>
     );
 };
