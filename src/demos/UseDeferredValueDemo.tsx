@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, memo, useDeferredValue, useEffect, useState, useTransition } from "react";
+import { Fragment, memo, useDeferredValue, useState } from "react";
 
 /**
  * Die Eingabe wird an eine langsame Komponente (Chart) übergeben. 
@@ -26,7 +26,10 @@ import { ChangeEvent, Fragment, memo, useDeferredValue, useEffect, useState, use
 };
 
 /**
- * @@@
+ * Zur verbesserung der Reaktionsfähigkeit wird der useDeferreValue-Hook
+ * verwendet, dessen Wert wird an die langsame Komponente (Chart) übergeben.
+ * Um ein re-render der Chart Komponente für den alten Wert zu unterbinden, 
+ * wird die Chart Komponente in ein memo gepackt.
  */
 export function HeavyRenderOptimizedDemo() {
     const [ input, setInput ] = useState('');
@@ -62,7 +65,9 @@ export function HeavyRenderOptimizedDemo() {
 type CharParams = {
     content: string
 };
-/** Verzögert durch aufwändiges Rendern die Ausgabe des übergebenen Wertes.
+
+/** 
+ * Verzögert durch aufwändiges Rendern die Ausgabe des übergebenen Wertes.
  * Simuliert dabei eine aufwändig gerenderte Komponente.
  */
 function Chart({content}: CharParams) {
@@ -76,10 +81,14 @@ function Chart({content}: CharParams) {
 
 const ChartMemo = memo(Chart);
 
-/** Aktives warten. */
+/**
+ * Führt ein aktives Warten aus.
+ * @param ms Wartezeit in ms
+ */
 function delay(ms: number) {
     let startTime = performance.now();
     while (performance.now() - startTime < ms) {
-        // Do nothing for 1 ms per item to emulate extremely slow code
+        // Nichts machen bis die Zeit abgelaufen ist...
+        // Simuliert langsamen Code
     }
 };

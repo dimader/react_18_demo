@@ -21,19 +21,19 @@ export default Overview;
  * verwendet werden.
  */
 const components = [
-    {desc: "useId - Demo", path:"/useId/", Component: UseIdDemo},
+    {desc: "React 18 - useId - Demo", path:"/useId/", Component: UseIdDemo},
     
-    {desc: "useEffect - Long API Call Demo", path:"/api/", Component: LongApiCallDemo},
+    // {desc: "useEffect - Long API Call Demo", path:"/api/", Component: LongApiCallDemo},
 
-    {desc: "Input Lag Demo - aufwändiges Rendern", path:"/inputlag1/", Component: HeavyInputLagDemo},
+    // {desc: "Input Lag Demo - aufwändiges Rendern", path:"/inputlag1/", Component: HeavyInputLagDemo},
 
-    {desc: "useDeferredValue - Demo ohne Optimierung", path:"/useDeferredValue1/", Component: HeavyRenderDemo},
-    {desc: "useDeferredValue - Demo mit useDeferredValue-Hook", path:"/useDeferredValue2/", Component: HeavyRenderOptimizedDemo},
+    // {desc: "useDeferredValue - Demo ohne Optimierung", path:"/useDeferredValue1/", Component: HeavyRenderDemo},
+    // {desc: "useDeferredValue - Demo mit useDeferredValue-Hook", path:"/useDeferredValue2/", Component: HeavyRenderOptimizedDemo},
 
-    {desc: "useTransition - Content Update Demo 1", path:"/useTransition1/", Component: ContentUpdateDemo},
-    {desc: "useTransition - Content Update Demo mit useTransition", path:"/useTransition2/", Component: ContentUpdateDemoUseTransition},
+    // {desc: "useTransition - Content Update Demo 1", path:"/useTransition1/", Component: ContentUpdateDemo},
+    // {desc: "useTransition - Content Update Demo mit useTransition", path:"/useTransition2/", Component: ContentUpdateDemoUseTransition},
 
-    {desc: "useTransition - Offizielle React Demo", path:"/useTransition3/", Component: TabContainer},
+    // {desc: "useTransition - Offizielle React Demo", path:"/useTransition3/", Component: TabContainer},
 ];
 
 function Overview() {
