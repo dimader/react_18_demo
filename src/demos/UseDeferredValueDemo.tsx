@@ -1,6 +1,8 @@
-import { Fragment, memo, useDeferredValue, useState } from "react";
+import { memo, useDeferredValue, useState } from "react";
 
 /**
+ * useDeferredValue - Demo ohne Optimierung
+ * 
  * Die Eingabe wird an eine langsame Komponente (Chart) übergeben. 
  * Damit wird die Komplette Komponente langsam und verzögert die Ausgabe spürbar.
  */
@@ -8,7 +10,7 @@ import { Fragment, memo, useDeferredValue, useState } from "react";
     const [ input, setInput ] = useState('');
     
     return (
-        <Fragment>
+        <>
             <div className="grid grid-cols-3 max-w-md">
                 <div className="col-span-3 bg-teal-100 m-5 p-3 rounded">
                     Bei aufwändigem Rendern kann schnell eine spürbare Eingabeverzögerung entstehen.
@@ -21,11 +23,13 @@ import { Fragment, memo, useDeferredValue, useState } from "react";
 
                 <Chart content={input} />
             </div>
-        </Fragment>
+        </>
     );
 };
 
 /**
+ * useDeferredValue - Demo mit useDeferredValue-Hook
+ * 
  * Zur verbesserung der Reaktionsfähigkeit wird der useDeferreValue-Hook
  * verwendet, dessen Wert wird an die langsame Komponente (Chart) übergeben.
  * Um ein re-render der Chart Komponente für den alten Wert zu unterbinden, 
@@ -36,7 +40,7 @@ export function HeavyRenderOptimizedDemo() {
     const deferedInput = useDeferredValue(input);
 
     return (
-        <Fragment>
+        <>
             <div className="grid grid-cols-3 max-w-md">
                 <div className="col-span-3 bg-teal-100 m-5 p-3 rounded">
                     Bei aufwändigem Rendern kann schnell eine spürbare Eingabeverzögerung entstehen.
@@ -50,7 +54,7 @@ export function HeavyRenderOptimizedDemo() {
                 {/* Memo nutzen und deferred-Value übergeben. */}
                 <ChartMemo content={deferedInput} />
             </div>
-        </Fragment>
+        </>
     );
 };
 
@@ -72,13 +76,17 @@ type CharParams = {
  */
 function Chart({content}: CharParams) {
     delay(125); // Wichtige und komplexe Berechnungslogik !
-    return (
-        <Fragment>
+    return (<>
+        <div className="col-span-3 m-5 p-3">
             <p>Inhalt: {content}</p>
-        </Fragment>
+        </div>
+        </>
     );
 };
 
+/**
+ * Memoized Komponente Chart.
+ */
 const ChartMemo = memo(Chart);
 
 /**

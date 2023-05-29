@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, memo, useDeferredValue, useEffect, useState, useTransition } from "react";
+import { memo, useState, useTransition } from "react";
 
 /**
  * useTransition
@@ -11,7 +11,7 @@ import { ChangeEvent, Fragment, memo, useDeferredValue, useEffect, useState, use
     const [ page, setPage ] = useState('page1');
 
     return (
-        <Fragment>
+        <>
             <div className="grid grid-cols-3 max-w-md">
                 <div className="col-span-3 bg-teal-100 m-5 p-3 rounded">
                     Hier kann man evtl. auch etwas mehr Text ausgeben und damit die Anwendung ein wenig erklären, funktioniert das gut??
@@ -36,7 +36,7 @@ import { ChangeEvent, Fragment, memo, useDeferredValue, useEffect, useState, use
                     {page === 'page3' && <SlowPageMemo />}
                 </div>
             </div>
-        </Fragment>
+        </>
     );
 };
 export function ContentUpdateDemoUseTransition() {
@@ -51,7 +51,7 @@ export function ContentUpdateDemoUseTransition() {
     };
 
     return (
-        <Fragment>
+        <>
             <div className="grid grid-cols-3 max-w-md">
                 <div className="col-span-3 bg-teal-100 m-5 p-3 rounded">
                     Hier kann man evtl. auch etwas mehr Text ausgeben und damit die Anwendung ein wenig erklären, funktioniert das gut??
@@ -76,7 +76,7 @@ export function ContentUpdateDemoUseTransition() {
                     {page === 'page3' && <SlowPageMemo />}
                 </div>
             </div>
-        </Fragment>
+        </>
     );
 };
 type PageProps = {
