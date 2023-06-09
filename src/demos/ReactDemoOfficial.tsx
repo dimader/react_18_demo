@@ -1,5 +1,31 @@
 import { memo, useState, useTransition } from 'react';
 
+
+import { createElement } from 'react';
+type Param = { name: string }
+
+function GreetingJsx({ name }: Param) {
+    return (
+        <h1 className="greeting">
+            Hello <i>{name}</i>. Welcome!
+        </h1>
+    );
+};
+
+function Greeting({ name }: Param) {
+    return createElement(
+        'h1',
+        { className: 'greeting' },
+        'Hello ',
+        createElement('i', null, name),
+        '. Welcome!'
+    );
+};
+
+
+
+
+
 export function TabContainer() {
     const [isPending, startTransition] = useTransition();
     const [tab, setTab] = useState('about');

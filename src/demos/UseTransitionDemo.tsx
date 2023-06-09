@@ -1,47 +1,66 @@
 import { memo, useState, useTransition } from "react";
 
 /**
- * useTransition
+ * React 18 - useTransition - Content Update Demo ohne useTransition
  * 
- * ohne Optimierung
+ * Aufbau mit Tabs, Inhalte können über Buttons ausgetauscht werden.
  */
  export function ContentUpdateDemo() {
-    console.count('###### DEMO ######## - ContentUpdateDemo');
-
     const [ page, setPage ] = useState('page1');
+    const [ count, setCount ] = useState(0);
+    const handleClick = () => {
+        setCount(count + 1);
+    };
 
-    return (
-        <>
-            <div className="grid grid-cols-3 max-w-md">
-                <div className="col-span-3 bg-teal-100 m-5 p-3 rounded">
-                    Hier kann man evtl. auch etwas mehr Text ausgeben und damit die Anwendung ein wenig erklären, funktioniert das gut??
-                </div>
-                <div className="col-span-3 bg-teal-300 m-5 p-3 rounded">
-                    Aktuelle Seite: {page}
-                </div>
-
-                <div><input className="bg-teal-500 m-5 rounded border-double border-4 border-sky-500 p-3" type="button" onClick={() => {
-                    setPage('page1')
-                }} value="Seite 1" /></div>
-                <div><input className="bg-teal-500 m-5 rounded border-double border-4 border-sky-500 p-3" type="button" onClick={() => {
-                    setPage('page2')
-                }} value="Seite 2" /></div>
-                <div><input className="bg-teal-500 m-5 rounded border-double border-4 border-red-800 p-3" type="button" onClick={() => {
-                    setPage('page3')
-                }} value="Seite 3" /></div>
-
-                <div className="col-span-3 bg-teal-300 m-5 p-3 rounded">
-                    {page === 'page1' && <QuickPage title={page} />}
-                    {page === 'page2' && <QuickCalcPage title={page} />}
-                    {page === 'page3' && <SlowPageMemo />}
-                </div>
+    return (<>
+        <div className="grid grid-cols-3 max-w-md">
+            <div className="col-span-3 bg-teal-100 m-2 p-2 rounded">
+                Seite 3 ist eine langsame Komponente, diese zu öffnen verzögert die Anwendung.
+                Der Zähler in Seite 2 kann nicht verwendet werden wenn Seite 3 angeklickt wurde aber noch nicht offen ist.
+                Die Anwendung blockiert!
             </div>
-        </>
+            <div className="col-span-2 bg-teal-300 m-2 p-2 rounded">
+                Aktuelle Seite: {page} - Zähler: {count}
+            </div>
+            <div className="col-span-1 bg-teal-300 m-2 p-2 rounded">
+                <input className="rounded" type="button" onClick={() => {
+                    handleClick()
+                }} value="Zähler++" />
+            </div>
+
+            <div className="p-2"><input className="rounded" type="button" onClick={() => {
+                setPage('page1')
+            }} value="Seite 1" /></div>
+            <div className="p-2"><input className="rounded" type="button" onClick={() => {
+                setPage('page2')
+            }} value="Seite 2" /></div>
+            <div className="p-2"><input className="rounded" style={{backgroundColor: '#fa7979'}} type="button" onClick={() => {
+                setPage('page3')
+            }} value="Seite 3" /></div>
+
+            <div className="col-span-3 bg-teal-300 m-2 p-2 rounded">
+                {page === 'page1' && <QuickPage title={page} />}
+                {page === 'page2' && <QuickCalcPage title={page} />}
+                {page === 'page3' && <SlowPageMemo />}
+            </div>
+        </div>
+    </>
     );
 };
+
+/**
+ * React 18 - useTransition - Content Update Demo mit useTransition
+ * 
+ * Mit useTransition wird das Öffnen der Page 3 async gemacht und ist damit 
+ * unterpriorisiert. Die Anwendung blockiert nicht.
+ */
 export function ContentUpdateDemoUseTransition() {
-    console.count('###### DEMO ######## - ContentUpdateDemoUseTransition');
     const [ page, setPage ] = useState('page1');
+    const [ count, setCount ] = useState(0);
+    const handleClick = () => {
+        setCount(count + 1);
+    };
+
     const [ isPending, startTransition ] = useTransition();
 
     const handlePageChange = (page: string) => {
@@ -50,33 +69,38 @@ export function ContentUpdateDemoUseTransition() {
         });
     };
 
-    return (
-        <>
-            <div className="grid grid-cols-3 max-w-md">
-                <div className="col-span-3 bg-teal-100 m-5 p-3 rounded">
-                    Hier kann man evtl. auch etwas mehr Text ausgeben und damit die Anwendung ein wenig erklären, funktioniert das gut??
-                </div>
-                <div className="col-span-3 bg-teal-300 m-5 p-3 rounded">
-                    Aktuelle Seite: {page}
-                </div>
-
-                <div><input className="bg-teal-500 m-5 rounded border-double border-4 border-sky-500 p-3" type="button" onClick={() => {
-                    handlePageChange('page1')
-                }} value="Seite 1" /></div>
-                <div><input className="bg-teal-500 m-5 rounded border-double border-4 border-sky-500 p-3" type="button" onClick={() => {
-                    handlePageChange('page2')
-                }} value="Seite 2" /></div>
-                <div><input className="bg-teal-500 m-5 rounded border-double border-4 border-red-800 p-3" type="button" onClick={() => {
-                    handlePageChange('page3')
-                }} value="Seite 3" /></div>
-
-                <div className="col-span-3 bg-teal-300 m-5 p-3 rounded">
-                    {page === 'page1' && <QuickPage title={page} />}
-                    {page === 'page2' && <QuickCalcPage title={page} />}
-                    {page === 'page3' && <SlowPageMemo />}
-                </div>
+    return (<>
+        <div className="grid grid-cols-3 max-w-md">
+            <div className="col-span-3 bg-teal-100 m-2 p-2 rounded">
+                Seite 3 ist eine langsame Komponente, diese zu öffnen verzögert die Anwendung.
+                Durch den Einsatz von useTransition bleibt die Anwendung reaktiv, blockiert also nicht.
             </div>
-        </>
+            <div className="col-span-2 bg-teal-300 m-2 p-2 rounded">
+                Aktuelle Seite: {page} - Zähler: {count}
+            </div>
+            <div className="col-span-1 bg-teal-300 m-2 p-2 rounded">
+                <input className="rounded" type="button" onClick={() => {
+                    handleClick()
+                }} value="Zähler++" />
+            </div>
+
+            <div className="p-2"><input className="rounded" type="button" onClick={() => {
+                handlePageChange('page1')
+            }} value="Seite 1" /></div>
+            <div className="p-2"><input className="rounded" type="button" onClick={() => {
+                handlePageChange('page2')
+            }} value="Seite 2" /></div>
+            <div className="p-2"><input className="rounded" style={{backgroundColor: '#fa7979'}} type="button" onClick={() => {
+                handlePageChange('page3')
+            }} value="Seite 3" /></div>
+
+            <div className="col-span-3 bg-teal-300 m-2 p-2 rounded">
+                {page === 'page1' && <QuickPage title={page} />}
+                {page === 'page2' && <QuickCalcPage title={page} />}
+                {page === 'page3' && <SlowPageMemo />}
+            </div>
+        </div>
+    </>
     );
 };
 type PageProps = {
@@ -99,34 +123,29 @@ function QuickCalcPage({title}:PageProps) {
         <input type="button" onClick={handleClick} value="Hochzählen" />            
     </>);
 };
-// const SlowPageMemo = memo(function SlowPage({title}:PageProps) {
-// const SlowPageMemo = memo(function SlowPage() {
-//     // delay(3000); // Wichtige und komplexe Berechnungslogik !
-//     return (
-//         <>
-//         <SlowComponent />
-        
-//         </>
-//     );
-// });
+
 const SlowPageMemo = memo(SlowComponent);
 
-// TODO DID memo bringt doch nichts wenn es keine übergabeparam gibt... 
-
-/**
- * DAS rendern EINER Komponente kann abgebrochen werden, es wird nicht der PROZESS (async) gekilled 
- * wenn ein neuer Status kommt !! 
- * Also viele etwas langsame Komponenten sind besser als EINE SEHR Langsame komponente !!!!
+/** 
+ * Es werden viele kleine Komponenten gerendert, 
+ * jede der Komponenten verzögert leicht.
  */
-
-
 function SlowComponent() {
-    delay(3000); // Wichtige und komplexe Berechnungslogik !
+    let items = [];
+    for (let i = 0; i < 240; i++) {
+        items.push(<SlowComponentPart key={i} num={i} />);
+    }
     return (
-        <p>Slow Component!</p>
+        <ul className="items">
+            {items}
+        </ul>
     );
 };
-
+type PartParam = {num: number};
+function SlowComponentPart({num}: PartParam) {
+    delay(12); // Wichtige und komplexe Berechnungslogik !
+    return (<p>{num}</p>);
+};
 
 /**
  * Führt ein aktives Warten aus.

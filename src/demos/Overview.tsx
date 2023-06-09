@@ -25,9 +25,9 @@ const components = [
     {desc: "React 18 - useDeferredValue - Demo ohne Optimierung", path:"/useDeferredValue1/", Component: HeavyRenderDemo},
     {desc: "React 18 - useDeferredValue - Demo mit useDeferredValue-Hook", path:"/useDeferredValue2/", Component: HeavyRenderOptimizedDemo},
 
-    {desc: "React 18 - useEffect - Long API Call Demo", path:"/api/", Component: LongApiCallDemo},
+    // {desc: "React 18 - useEffect - Long API Call Demo", path:"/api/", Component: LongApiCallDemo},
 
-    {desc: "React 18 - useTransition - Content Update Demo 1", path:"/useTransition1/", Component: ContentUpdateDemo},
+    {desc: "React 18 - useTransition - Content Update Demo ohne useTransition", path:"/useTransition1/", Component: ContentUpdateDemo},
     {desc: "React 18 - useTransition - Content Update Demo mit useTransition", path:"/useTransition2/", Component: ContentUpdateDemoUseTransition},
 
     {desc: "React 18 - useTransition - Offizielle React Demo", path:"/useTransition3/", Component: TabContainer},

@@ -37,7 +37,8 @@ import { memo, useDeferredValue, useState } from "react";
  */
 export function HeavyRenderOptimizedDemo() {
     const [ input, setInput ] = useState('');
-    const deferedInput = useDeferredValue(input);
+    const deferredInput = useDeferredValue(input);
+    // const isStale = input !== deferredInput;
 
     return (
         <>
@@ -52,7 +53,7 @@ export function HeavyRenderOptimizedDemo() {
                 />
 
                 {/* Memo nutzen und deferred-Value übergeben. */}
-                <ChartMemo content={deferedInput} />
+                <ChartMemo content={deferredInput} />
             </div>
         </>
     );
