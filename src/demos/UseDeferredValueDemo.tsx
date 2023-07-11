@@ -37,7 +37,7 @@ import { memo, useDeferredValue, useState } from "react";
  */
 export function HeavyRenderOptimizedDemo() {
     const [ input, setInput ] = useState('');
-    const deferredInput = useDeferredValue(input);
+    const deferredInput = useDeferredValue<string>(input);
     // const isStale = input !== deferredInput;
 
     return (

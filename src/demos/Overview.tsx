@@ -4,13 +4,11 @@ import {
     Route,
     Link
 } from "react-router-dom";
-// Import der Komponenten
-import { LongApiCallDemo } from "./DemoApi";
-
-import { TabContainer } from "./ReactDemoOfficial";
 import { HeavyRenderDemo, HeavyRenderOptimizedDemo } from "./UseDeferredValueDemo";
 import UseIdDemo from "./UseIdDemo";
 import { ContentUpdateDemo, ContentUpdateDemoUseTransition } from "./UseTransitionDemo";
+import { Uebung1 } from "./Uebung1";
+import { Loesung1 } from "./Loesung1";
 
 export default Overview;
 
@@ -25,14 +23,16 @@ const components = [
     {desc: "React 18 - useDeferredValue - Demo ohne Optimierung", path:"/useDeferredValue1/", Component: HeavyRenderDemo},
     {desc: "React 18 - useDeferredValue - Demo mit useDeferredValue-Hook", path:"/useDeferredValue2/", Component: HeavyRenderOptimizedDemo},
 
-    // {desc: "React 18 - useEffect - Long API Call Demo", path:"/api/", Component: LongApiCallDemo},
-
     {desc: "React 18 - useTransition - Content Update Demo ohne useTransition", path:"/useTransition1/", Component: ContentUpdateDemo},
     {desc: "React 18 - useTransition - Content Update Demo mit useTransition", path:"/useTransition2/", Component: ContentUpdateDemoUseTransition},
 
-    {desc: "React 18 - useTransition - Offizielle React Demo", path:"/useTransition3/", Component: TabContainer},
+    {desc: "Übung React 18 - #1", path:"/uebung1/", Component: Uebung1},
+    {desc: "Lösung React 18 - #1", path:"/loesung1/", Component: Loesung1},
 ];
 
+/**
+ * Erstellt die Routes für das Routing.
+ */
 function Overview() {
     return (<>
         <Router>
@@ -53,22 +53,18 @@ function Overview() {
 
 /**
  * Auflistung der Links zu allen Demos.
- * @returns JSX
  */
 function Links() {
     return (<>
         <div className="m-2 p-2">
         <h1 className="font-bold text-xl">Übersicht</h1>
-
         <div className="container">
             <nav>
-
                 {
                     components.map(eachComponent => {
                         return <><p /><Link className="underline decoration-solid" to={eachComponent.path}>{eachComponent.desc}</Link> </>
                     })
                 }
-
             </nav>
         </div>
         </div>

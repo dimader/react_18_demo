@@ -132,7 +132,7 @@ const SlowPageMemo = memo(SlowComponent);
  */
 function SlowComponent() {
     let items = [];
-    for (let i = 0; i < 240; i++) {
+    for (let i = 0; i < 1000; i++) {
         items.push(<SlowComponentPart key={i} num={i} />);
     }
     return (
@@ -143,7 +143,7 @@ function SlowComponent() {
 };
 type PartParam = {num: number};
 function SlowComponentPart({num}: PartParam) {
-    delay(12); // Wichtige und komplexe Berechnungslogik !
+    delay(1); // Wichtige und komplexe Berechnungslogik !
     return (<p>{num}</p>);
 };
 
