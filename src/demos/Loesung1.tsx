@@ -61,13 +61,13 @@ const ListData = (data: Film) => {
  * Lösung:
  * Zuerst muss für die Eingabe ein deferred-Wert angelegt werden.
  * Als nächstes sollte idealerweise eine eigene Komponente für die Filterung verwendet werden,
- * die kann dann in ein Memo gepackt werden welcher der deffered-Wert als Filter
+ * die kann dann in ein Memo gepackt werden welcher der deferred-Wert als Filter
  * übergeben wird.
  */
 export function Loesung1() {
     
     const [filter, setFilter] = useState("");
-    const deferredFilter = useDeferredValue(filter);
+    const deferredFilter = useDeferredValue(filter); // Concurrent Funktion nutzen um Eingabe und Rendering der Liste zu trennen
 
     return (
         <>
@@ -88,6 +88,9 @@ export function Loesung1() {
 interface ResultList {
     filter: string,
 }
+/**
+ * Suchergebnisse in eine eigene Komponente packen.
+ */
 function SearchResultList(param: ResultList) {
     return (<>
         {data
@@ -104,4 +107,8 @@ function SearchResultList(param: ResultList) {
     </>);
 };
 
+/**
+ * Suchergebnisse in ein memo packen, damit wird
+ * das useDeferredValue richtig ausgenutzt.
+ */
 const SearchResultListMemo = memo(SearchResultList);

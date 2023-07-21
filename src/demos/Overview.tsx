@@ -26,8 +26,8 @@ const components = [
     {desc: "React 18 - useTransition - Content Update Demo ohne useTransition", path:"/useTransition1/", Component: ContentUpdateDemo},
     {desc: "React 18 - useTransition - Content Update Demo mit useTransition", path:"/useTransition2/", Component: ContentUpdateDemoUseTransition},
 
-    {desc: "Übung React 18 - #1", path:"/uebung1/", Component: Uebung1},
-    {desc: "Lösung React 18 - #1", path:"/loesung1/", Component: Loesung1},
+    {desc: "Übung zu React 18 #1 (Uebung1.tsx)", path:"/uebung1/", Component: Uebung1},
+    {desc: "Lösung zu #1", path:"/loesung1/", Component: Loesung1},
 ];
 
 /**
